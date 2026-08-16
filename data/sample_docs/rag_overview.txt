@@ -1,0 +1,22 @@
+Retrieval-Augmented Generation (RAG) combines a retrieval system with a generative
+language model. Instead of relying only on what the model learned during training,
+RAG looks up relevant text from an external knowledge source at query time and
+feeds it to the model as context. This reduces hallucination, keeps answers
+grounded in up-to-date source material, and avoids retraining the model every time
+the underlying documents change.
+
+A typical RAG pipeline has three stages. First, ingestion: documents are split
+into chunks small enough to embed meaningfully, each chunk is converted into a
+vector using an embedding model, and the vectors are stored in a vector index such
+as FAISS, Pinecone, or Weaviate. Second, retrieval: an incoming question is
+embedded with the same model, and the index returns the chunks whose vectors are
+closest to the question's vector. Third, generation: the retrieved chunks are
+assembled into a prompt alongside the original question, and a language model
+produces the final answer using that context.
+
+Chunk size and overlap are important tuning parameters. Chunks that are too large
+dilute the embedding with irrelevant text, while chunks that are too small lose
+context. Overlapping chunks slightly reduces the risk of splitting an important
+sentence across a chunk boundary. The number of chunks retrieved per query (top-k)
+also trades off between giving the model enough context and staying within its
+context window.

@@ -1,0 +1,18 @@
+Vector search finds the items in a collection whose embeddings are most similar
+to a query embedding, usually measured with cosine similarity or inner product.
+FAISS (Facebook AI Similarity Search) is a widely used library for this because
+it supports both exact search, such as IndexFlatIP, and approximate nearest
+neighbour methods like IVF and HNSW that scale to millions of vectors while
+trading a small amount of recall for much faster query times.
+
+For small to medium document collections, an exact flat index is usually the
+right starting point: it is simple, has no training step, and gives perfect
+recall. Once a collection grows past roughly a million vectors, an approximate
+index becomes worth the added complexity, since a flat index's search cost grows
+linearly with the number of stored vectors.
+
+Normalizing embeddings to unit length before indexing lets an inner-product index
+behave like a cosine-similarity index, which is why the ingestion and query paths
+in a RAG pipeline should apply the same normalization step consistently - a
+mismatch between how documents and queries are embedded is one of the most common
+sources of poor retrieval quality.
