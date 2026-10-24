@@ -52,3 +52,7 @@ pytest tests/
 This is a portfolio/demo project - the sample documents and LLM client are
 intentionally minimal so the RAG mechanics (chunking, embedding, retrieval,
 context assembly) are easy to follow and extend.
+
+## License
+
+Copyright (c) 2026 Rahul Gupta. All rights reserved. Published for viewing and evaluation only; copying or reuse requires written permission. See [LICENSE](LICENSE).
